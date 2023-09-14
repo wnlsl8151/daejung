@@ -1,0 +1,587 @@
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="./favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="./css/reset.css">
+
+    <title>대정엔지니어링</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=PT+Serif:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+        :root{            
+            font-family: 'Montserrat',sans-serif;
+            font-weight:400;
+            font-size:16px;
+            color:#3f51b5;
+            /* line-height:1.4em; */
+            text-transform:uppercase;
+        }
+        .lower-txt{
+            text-transform:lowercase;
+        }
+        .serif{
+            font-family:'PT serif',serif;
+            color:#616161;
+        }        
+        .hide{
+            display:none;
+        }
+        .sec{            
+            padding:60px 20px;
+        }
+        .under-line{
+            position:relative;
+        }
+        .under-line::after{
+            position:absolute;
+            left:50%;
+            bottom:0;
+            transform:translateX(-50%);
+            content:'';
+            display:block;
+            width:100%;
+            max-width:1200px;
+            height:2px;            
+            background:#aaa;
+        }
+        .blog.under-line::after{
+            width:50px;
+            background:#3f51b5;
+        }
+        
+
+        .wrap{            
+            overflow:hidden;
+            /* background:rgba(0,0,0,0.3); */
+        }
+        .container{
+            overflow:hidden;
+            max-width:1200px;
+            margin:0 auto;
+        }
+        .header{
+            position:fixed;
+            left:0;
+            right:0;
+            top:0;
+            z-index:100;
+            display:flex;           
+            justify-content:space-between;
+            align-items:center;
+            width:100%;
+            height:62px;
+            padding:0 5%;
+            background:#fff;
+        }
+        .logo{
+            font-size:26px;
+        }
+        nav{
+            position:absolute;            
+            left:0;
+            right:0;
+            top:100%;
+
+            height:0;            
+            background:#3f51b5;
+            color:#fff;
+            overflow:hidden;
+            transition-property:height;
+            transition-duration:0.3s;
+        }
+        nav.active{
+            height:200px;
+        }
+        nav li{
+            padding:10px 5%;
+            border-bottom:1px solid #222165;
+        }
+        .btn-nav{
+            display:flex;
+            flex-flow:column nowrap;
+            justify-content:space-between;
+            width:22px;
+            height:16px;
+            cursor:pointer;
+        }
+        .btn-nav::before,.btn-nav::after{
+            content:'';
+            display:block;
+        }
+        .btn-nav span,.btn-nav::before,.btn-nav::after{
+            height:2px;
+            background:#3f51b5;
+            text-indent:-9999px;
+        }
+        video{
+            width: 100%;
+        }
+        .slider{
+            margin-top:62px;
+            padding:0;
+        }
+        .we-are{
+            position:relative;
+            z-index:1;
+        }
+        .flex-box{
+            display:flex;
+            flex-flow:row wrap;
+            justify-content:space-between;
+        }
+
+        
+        .flex-box img{
+            width:auto;
+            height:100%;
+        }
+        .flex-box>*{
+            width:100%;
+        }
+        .sec h2{
+            margin-bottom:0.5em;
+            font-size:42px;
+            text-align:center;
+        }
+        .flex-box h2+p{
+            position:relative;
+            margin-bottom:60px;
+            text-align:center;
+            line-height:29px;
+            font-weight: 700;
+        }
+        .flex-box h2+p::before{
+            position:absolute;
+            left:-25px;
+            top:10px;
+            content:'';
+            display:none;
+            width:2px;
+            height:68px;
+            background:#aaa;
+        }
+        .flex-box article{
+            margin-bottom:50px;
+        }
+        .flex-box article:last-of-type{
+            margin-bottom:0;
+        }
+        .flex-box article .img-box{
+            margin-bottom:2em;
+            text-align:center;
+        }
+        .flex-box article h3{
+            margin-bottom:1.4em;
+            text-align:center;
+        }
+        .flex-box article p{
+            font-size:14px;
+            line-height:23px;
+            color:#616161;
+            text-align:center;
+        }
+        .work{
+            padding-left:0;
+            padding-right:0;
+            margin-bottom: 100px;
+        }
+        .work h2{
+            margin-bottom:60px;
+        }
+        .work article{
+            overflow:hidden;
+            position:relative;
+            margin:0;
+        }        
+        .work article .img-box{            
+            width:100%;
+            height:auto;
+            margin:0;
+        }
+        .work article img{
+            height:auto;
+            width:100%;
+        }
+        .work article:hover img{
+            opacity:0.5;
+        }
+        .work article .img-box::after{
+            position:absolute;
+            left:0;
+            right:0;
+            top:0;
+            bottom:0;
+            background:#3f51b5;
+            content:'';
+            display:block;
+            opacity:0;
+            transition:0.3s;
+        }
+        .work article:hover .img-box::after{
+            opacity:0.8;
+        }
+
+        .work article h3,.work article p{
+            position:absolute;
+            left:2em;
+            top:-4em;
+            opacity:0;
+            font-weight:700;
+            font-size:18px;
+            color:#fff;
+            transition:0.3s;
+        }
+        .work article p{
+            padding-left:7px;
+            top:-2em;
+            font-weight:500;
+            font-size:14px;            
+        }
+        .work article:hover h3{
+            top:2em;
+            opacity:1;
+        }
+        .work article:hover p{
+            top:4em;
+            opacity:1;
+        }
+        .blog{
+            margin-bottom: 200px;
+        }
+        .blog article .img-box{
+            height:auto;
+            margin-bottom:0.5em;
+        }
+        .blog article .img-box img{
+            height:auto;
+            width:100%;
+        }
+        .blog article h3{
+            margin:0;
+            font-size:12px;
+            text-align:left;
+            color:#aaa;
+        }
+        .blog article p{
+            text-align:left;
+        }
+        .form-box{
+            display:flex;
+            flex-flow:column nowrap;
+        }
+        .form-box>div{
+            width:100%;
+        }
+        input,textarea{
+            display:block;
+            width:100%;
+            margin-bottom:2em;
+            border:none;
+            border-bottom:1px solid #616161;
+            padding:1em 0;
+            outline:none;
+        }
+        .input-box input::placeholder,textarea::placeholder{
+            color:#3f51b5;
+            text-transform:capitalize;
+        }
+        /* textarea{
+            height:184px;
+        }
+        .send-box input{
+            width:120px;
+            margin:0 0 0 auto;
+            border:none;
+            border-radius:4px;
+            background:#3f51b5;
+            color:#fff;
+        } */
+        .map{
+            padding:0;
+            margin-bottom: 100px;
+        }
+        .map iframe{
+            display:block;
+            width:100%;
+            height:500px;
+            border:none;
+        }
+        address{
+            display: flex;
+            padding:20px;
+            text-align:center;
+            justify-content: space-between;
+        }
+
+        .img-ad{
+            display: none;
+        }
+
+        .txt-ad{
+            display: none;
+        }
+
+       
+
+
+
+        @media (min-width:768px){
+            .header{
+                height:84px;
+            }
+            nav{
+                position:static;
+                height:auto;
+                background:transparent;
+                color:#3f51b5;
+            }
+            nav.active{
+                height:auto;
+            }
+            nav li{
+                display:inline;
+                padding:0 0 0 1em;
+                border-bottom:none;
+            }
+            .btn-nav{
+                display:none;
+            }
+            .slider{
+                margin-top:84px;
+            }
+            .flex-box article{
+                width:calc(25% - 15px);
+                margin-bottom:0;
+            }
+            .work article{
+                width:50%;
+            }
+            .blog article{
+                width:calc(33.3333% - 20px)
+            }
+            .form-box{
+                flex-flow:row nowrap;
+                justify-content:space-between;
+            }
+            .form-box>div{
+                width:calc(50% - 15px);
+            }
+            .map iframe{
+                height:400px;
+            }
+        }
+
+        @media (min-width:1200px){
+            .sec h2{
+                width:40%;
+                text-align:left;
+            }
+            .flex-box h2+p{                
+                width:60%;
+                /* padding-left:2em; */
+                /* border-left:1px solid #aaa; */
+                text-align:left;
+            }
+            .flex-box h2+p::before{
+                display:block;
+            }
+            .work article{
+                width:25%;
+            }            
+            .blog h2,.blog article,.contact h2{
+                width:calc(25% - 15px);
+            }
+            .contact form{
+                width:calc(75% - 15px)
+            }
+            .map iframe{
+                height:300px;
+            }
+
+            .img-ad{
+                display: block;
+            }
+
+            .txt-ad{
+                display: block;
+                margin-right: 750px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <section class="wrap">
+        <header class="header">
+            <h1 class="logo"><a href="./index.html"><img src="./images/m_logo.gif" alt="logo"></a></h1>
+            <nav>
+                <ul>
+                    <li><a href="#home">HOME</a></li>
+                    <li><a href="#we-are">회사소개</a></li>
+                    <li><a href="#work">GALLERY</a></li>
+                    <li><a href="#blog">VISION</a></li>
+                    <!-- <li><a href="#contact">MAP</a></li> -->
+                </ul>
+            </nav>
+            <div class="btn-nav" onclick="navToggle();">
+                <span>내비버튼</span>
+            </div>
+        </header>
+        <section class="sec slider" id="home">
+            <h2 class="hide">slider</h2>
+            <div class="img-box">
+                <a href="./index.html">
+                        <video src="./video/main-3.mp4" autoplay loop muted></video>
+                </a>
+            </div>
+        </section>
+        <section class="sec we-are under-line" id="we-are">            
+            <div class="container flex-box">
+                <h2>회사 소개</h2>
+                <p class="lower-txt serif">대성엔지니어링은 기초토목공사의 시공상태를 측정 관리하는 장치를 개발, 설계, 제작하는 전문업체로서 연약지반 시공관리계, 그라우트 유량계, 토목시공용 경사계 등을 생산하고 있습니다. 국내 최초로 그라우트 유량게를 개발하였으며 각종 건설공사, 특히 기초 토목 현장에 정밀시공 및 부실시공 방지를 위하여 사용되고 있습니다. 2000년에 영국 CCAS에서 국제품질경영시스템을 도입하여 품질 좋은 서비슬 운영함으로써 모범이 될 뿐만 아니라 오랜 경험으로 축적된 우수한 기술을 바탕으로 최고 품격의 서비스를 모든 고객에게 제공하고 있습니다. 아울러 새로운 기술개발에 앞장서서 기술한국을 이룩해 나가는데 일익을 담당 할 것은 물론 항상 보다 더 좋은 제품을 만들기 위하여 열과 성을 다 하겠습니다.</p>
+                <article>
+                    <div class="img-box"><img src="./images/image46.png" alt="프로모션1"></div>
+                    <h3>대정 엔지니어링</h3>
+                    <p class="lower-txt serif">국제산업인증서</p>
+                </article>
+                <article>
+                    <div class="img-box"><img src="./images/image49.png" alt="프로모션2"></div>
+                    <h3>대정 엔지니어링</h3>
+                    <p class="lower-txt serif">기업역량 우수기업 인증서</p>
+                </article>
+                <article>
+                    <div class="img-box"><img src="./images/image50.png" alt="프로모션3"></div>
+                    <h3>대정 엔지니어링</h3>
+                    <p class="lower-txt serif">우수기술인증서</p>
+                </article>
+                <article>
+                    <div class="img-box"><img src="./images/image51.png" alt="프로모션4"></div>
+                    <h3>대정 엔지니어링</h3>
+                    <p class="lower-txt serif">디자인 등록증</p>
+                </article>
+            </div>   
+        </section>
+        <section class="sec work" id="work">
+            <div class="container">
+                <h2>GALLERY</h2>
+            </div>
+            <div class="flex-box">
+                <article>
+                    <div class="img-box"><img src="./images/gal01.jpg" alt="work01"></div>
+                    <h3>시공이력</h3>
+                    <p>베트남 하노이(2023)</p>
+                </article>
+                <article>
+                    <div class="img-box"><img src="./images/gal02.jpg" alt="work02"></div>
+                    <h3>유량계</h3>
+                    <p>PC멀티그라우트류량계</p>
+                </article>
+                <article>
+                    <div class="img-box"><img src="./images/gal03.jpg" alt="work03"></div>
+                    <h3>유량계</h3>
+                    <p>PC멀티그라우트류량계</p>
+                </article>
+                <article>
+                    <div class="img-box"><img src="./images/gal04.jpg" alt="work04"></div>
+                    <h3>교정검사 장치</h3>
+                    <p>중량식 유량 교정검사 장치</p>
+                </article>
+                <article>
+                    <div class="img-box"><img src="./images/gal05.png" alt="work05"></div>
+                    <h3>고압분사기</h3>
+                    <p>실시간 통합 그라우팅 시공시스템</p>
+                </article>
+                <article>
+                    <div class="img-box"><img src="./images/gal06.png" alt="work06"></div>
+                    <h3>PC멀티그라우트류량계</h3>
+                    <p>DRS-PC-GGM Type</p>
+                </article>
+                <article>
+                    <div class="img-box"><img src="./images/gal07.png" alt="work07"></div>
+                    <h3>고압분사주입공법</h3>
+                    <p>DRS-MTH-S 50-500-W1K</p>
+                </article>
+                <article>
+                    <div class="img-box"><img src="./images/gal08.png" alt="work08"></div>
+                    <h3>고압분사시멘트밀크주입공법용</h3>
+                    <p>DRS-JET-K-70-600-1000</p>
+                </article>
+            </div>            
+
+        </section>
+        <section class="sec blog under-line" id="blog">
+            <div class="container flex-box">
+                <h2>VISION</h2>
+                <article>
+                    <div class="img-box"><img src="./images/vi1.jpg" alt="none"></div>
+                    <h3>trustworthy</h3>
+                    <br>
+                    <p>
+                        우리는 뛰어난 기술력과 혁신적인 역량을 통해 고객에게 최고의 품질과 성능을 제공하며, <br> 끊임없는 기술 발전으로 <br> 미래를  준비하고 있습니다. <br> 우리와 함께하면 믿을 수 있는 세계적인 <br> 기술 파트너가 되어드립니다.
+                    </p>
+                </article>
+                <article>
+                    <div class="img-box"><img src="./images/vi2.jpg" alt="none"></div>
+                    <h3>guaranteed</h3>
+                    <br>
+                    <p>
+                        ISO 9001 국제표준인증서, 액체유량분야의 <br> 국가기관 기술표준원을 보유하고 있습니다. <br> 
+                        글로벌 시장에서 신뢰할 수 있는 파트너로 <br> 정밀 측정에 있어 국제시장 경쟁력을 <br> 확보하여 고객들에게 우수한 품질을 <br> 보장하고 있습니다.
+                    </p>
+                </article>
+                <article>
+                    <div class="img-box"><img src="./images/vi3.jpg" alt="none"></div>
+                    <h3>sustainability</h3>
+                    <br>
+                    <p>우리는 31년간 우리나라 산업을 대표하며 전 세계에서 수많은 프로젝트를 통해 완벽한 품질로 글로벌 경쟁력을 갖춘 엔지니어링 회사로 성장해왔습니다. 우리의 역량과 경험은 최고의 솔루션을 제공하고 있으며, 지속적인 성장과 발전을 추구하고 있습니다.</p>
+                </article>
+            </div>
+            
+        </section>
+        <!-- <section class="sec contact" id="contact">
+            <div class="container flex-box">
+                <h2>contact</h2>
+                <form action="#">
+                    <div class="form-box">
+                        <div class="input-box">                            
+                            <label for="name" class="hide">name</label>                            
+                            <input type="text" name="name" id="name" placeholder="name">
+                            <label for="phone" class="hide">phone</label>
+                            <input type="text" name="phone" id="phone" placeholder="phone">
+                            <label for="e-mail" class="hide">email address</label>
+                            <input type="email" name="e-mail" id="e-mail" placeholder="email address">
+                        </div>
+                        <div class="txt-box">
+                            <label for="msg" class="hide">message</label>
+                            <textarea name="nsg" id="msg" placeholder="message"></textarea>
+                        </div>
+                    </div>                    
+                    <div class="send-box">
+                        <input type="submit" value="send message">
+                    </div>
+                </form>
+            </div>            
+        </section> -->
+        <section class="sec map">
+            <h2 class="hide">map</h2>
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3159.2155828756718!2d127.02135709999997!3d37.644135399999996!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x357cbc19b51201d9%3A0x1dc83ac8d7f22b4e!2z7ISc7Jq47Yq567OE7IucIOqwleu2geq1rCDsiJjsnKDrj5kgMjQ4LTg!5e0!3m2!1sko!2skr!4v1694649487681!5m2!1sko!2skr" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>            
+        </section>
+        <footer class="footer">
+            <address>
+                <div class="img-ad">
+                    <a href="./index.html">
+                        <img src="./images/m_logo.gif" alt="footer-logo">
+                    </a>
+                </div>
+                <div class="txt-ad">
+                    주소 : 서울시 강북구 수유 2동 248-8 <br> TEL : 02-997-4566 / 02-945-6070 <br> FAX : 02-908-2747 / 02-983-7133 <br> E-mail : jcson6070@gmail.com
+                </div>
+            </address>
+        </footer>
+    </section>
+
+    <script src="./js/default.js"></script>
+</body>
+</html>
